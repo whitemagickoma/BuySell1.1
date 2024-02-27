@@ -1,7 +1,5 @@
 package org.example.buysell.controllers;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.example.buysell.dto.UserDto;
 import org.example.buysell.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "UserController")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -23,7 +20,6 @@ public class UserController {
     }
 
     // Регистрация нового пользователя
-    @ApiOperation(value = "Registration new user", response = ResponseEntity.class)
     @PostMapping("/registration")
     public ResponseEntity<UserDto> registration(@RequestBody @Validated UserDto userDto) {
 

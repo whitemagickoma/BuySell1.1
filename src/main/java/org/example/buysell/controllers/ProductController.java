@@ -1,17 +1,16 @@
 package org.example.buysell.controllers;
 
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.example.buysell.dto.ProductDto;
 import org.example.buysell.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
-//@Api(tags = "ProductController")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/product")
@@ -21,8 +20,8 @@ public class ProductController {
 
     // Создание продукта
     @PostMapping("/create")
-    public ResponseEntity<String> createProduct(@RequestBody ProductDto productDto) {
-        productService.createProduct(productDto);
+    public ResponseEntity<String> createProduct(@RequestParam("file") MultipartFile file, @RequestBody ProductDto productDto, Principal principal) throws IOException {
+        productService.createProduct(principal, productDto, file);
         return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully");
     }
 
