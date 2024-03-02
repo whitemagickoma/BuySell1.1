@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.*;
 
 @Data
-public class UserDto {
+public class UserDTO {
 
     private Long id;
 
@@ -28,7 +28,7 @@ public class UserDto {
     @Size(min = 8, max = 10)
     private String password;
 
-    private List<ProductDto> productDtoList = new ArrayList<>();
+    private List<ProductDTO> productDTOList = new ArrayList<>();
 
     public String getUsername() {
         return email;

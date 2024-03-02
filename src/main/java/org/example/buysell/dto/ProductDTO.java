@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Data
-public class ProductDto {
+public class ProductDTO {
 
     private Long id;
 
@@ -33,7 +33,7 @@ public class ProductDto {
     @DateTimeFormat
     private LocalDateTime dateOfCreated;
 
-    private List<ImageDto> imageDtoList = new ArrayList<>();
+    private List<ImageDTO> imageDTOList = new ArrayList<>();
     private Long previewImageId;
     private Long userId;
 
@@ -41,16 +41,16 @@ public class ProductDto {
         dateOfCreated = LocalDateTime.now();
     }
 
-    public void addImageToProduct (ImageDto imageDto) {
+    public void addImageToProduct (ImageDTO imageDto) {
         imageDto.setProductDto(this);
-        imageDtoList.add(imageDto);
+        imageDTOList.add(imageDto);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductDto productDto = (ProductDto) o;
+        ProductDTO productDto = (ProductDTO) o;
         return Objects.equals(id, productDto.id);
     }
 

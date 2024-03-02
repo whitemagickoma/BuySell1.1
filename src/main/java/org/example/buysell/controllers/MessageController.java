@@ -1,6 +1,5 @@
 package org.example.buysell.controllers;
 
-import io.swagger.annotations.Api;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,11 @@ public class MessageController {
 
     private MessageSource messageSource;
 
+    /**
+     * {@code Get /api/message/hello} <br/>
+     * Возвращает сообщение в виде текста
+     * @return String возвращает сообщение в виде текста
+     */
     @GetMapping("/hello")
     public ResponseEntity<String> hello() {
         String message = messageSource.getMessage("greeting.message", new Object[]{}, LocaleContextHolder.getLocale());

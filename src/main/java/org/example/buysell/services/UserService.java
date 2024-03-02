@@ -2,8 +2,9 @@ package org.example.buysell.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.buysell.dao.UserDao;
-import org.example.buysell.dto.UserDto;
+import org.example.buysell.dao.UserDAO;
+import org.example.buysell.dto.ResponseDTO;
+import org.example.buysell.dto.UserDTO;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -12,10 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserDao userDao;
+    private final UserDAO userDao;
 
-    // Создание пользователя
-    public boolean createUser(UserDto userDto) {
+    /**
+     * Создание нового пользователя
+     * @param userDto вся информация относящиеся к пользователю
+     * @return возвращает статус операции
+     */
+    public boolean createUser(UserDTO userDto) {
         String email = userDto.getEmail();
 
         if (userDao.getUserByEmail(email) == null) {
@@ -29,24 +34,44 @@ public class UserService {
         }
     }
 
-    // Получение пользователей
-    public List<UserDto> getAllUsers() {
+    /**
+     * Получение всех пользователей
+     * @return возвращает лист пользователей
+     */
+    public List<UserDTO> getAllUsers() {
         return userDao.getAllUsers();
     }
 
-    // Логин
+    /**
+     * Аутентификация пользователя
+     * @param email Email пользователя для логина
+     * @param password Пароль кабинета
+     * @return возвращает статус операции
+     */
     public boolean authenticateUser(String email, String password) {
-        UserDto userDto = userDao.getUserByEmail(email);
+        UserDTO userDto = userDao.getUserByEmail(email);
         return userDto != null && userDto.getPassword().equals(password);
     }
 
-    // Изменение данных пользователя по ID
-    public UserDto editUserById(UserDto userDto) {
+    /**
+     * Редактирование данных пользователя по ID
+     * @param userDto вся информация относящиеся к пользователю
+     * @return возвращает обновленную информацию
+     */
+    public UserDTO editUserById(UserDTO userDto) {
         return userDao.editUserById(userDto);
     }
 
-    // Удаление пользователя по ID
-    public void deleteUser(Long id) {
-        userDao.deleteUser(id);
+    /**
+     * Удаление пользователя
+     * @param id ID пользователя
+     */
+    public boolean deleteUser(Long id) {
+        try {
+            return userDao.deleteUser(id) == 1 ? true : false;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return false;
+        }
     }
 }
